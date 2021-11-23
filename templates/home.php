@@ -7,6 +7,9 @@
     <div>
         <h1>Olá, <?php echo $_SESSION['usuarioLogado']['nome']; ?></h1>
         <hr/>
+        <div>
+            <a href="produtos.php?i=cad"><button class="button">Adicionar produto</button></a>
+        </div>
         <div class="home">
             <div>
                 <h4>Produtos emprestados</h4>
@@ -47,7 +50,7 @@
                 </table>
             </div>
             <div>
-                <h4>Produtos disponíves</h4>
+                <h4>Produtos disponíveis</h4>
                 <table class="table">
                     <thead>
                         <th>Código</th>

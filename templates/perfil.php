@@ -10,6 +10,7 @@
 
     if(isset($_POST['btnEditar'])){
         if(editarUsuario($_POST['nome'], $_POST['usuario'], $usuario["tipo_usuario"], $usuario["id"])){
+            atualizarSessao(pegarUsuario($usuario["id"]));
             header("location:perfil.php");
         }else{
             echo "Ocorreu um erro usuário não alterado!";

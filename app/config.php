@@ -19,4 +19,11 @@
         session_start();
         return isset($_SESSION['usuarioLogado']);
     }
+
+    function atualizarSessao($array_usuario){
+        session_start();
+        if(isset($_SESSION['usuarioLogado'])){
+            $_SESSION['usuarioLogado'] = $array_usuario;
+        }
+    }
 ?>

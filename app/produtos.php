@@ -90,6 +90,17 @@
         return $array_produtos;
     }
 
+    function isProdutoEmprestado($id){
+        $retorno = false;
+        $conexao = conectar();
+        $stmt = $conexao->query("SELECT 1 FROM emprestimos WHERE id_produto = '$id' and status = 0");
+        if($stmt->num_rows > 0){
+            $retorno = true;
+        }
+        desconectar($conexao);
+        return $retorno;
+    }
+
     function excluirProduto($id){
         $retorno = false;
         $conexao = conectar();

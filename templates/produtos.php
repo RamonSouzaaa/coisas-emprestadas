@@ -21,6 +21,11 @@
         }else{
             header("location:produtos.php");
         }
+    }else if(isset($_GET['i'])){
+        if($_GET['i'] == 'cad'){
+            $tituloModal = "Cadastrar produto";
+            $displayModal = "flex";
+        }
     }else{
         $tituloModal = "Cadastrar produto";
         $displayModal = "none";
@@ -38,10 +43,20 @@
         $id = $_GET['edit'];
         $produto = pegarProduto($_GET['edit']);
         if($produto["id_usuario"] == $_SESSION["usuarioLogado"]["id"]){
-            if(editarProduto($_POST['nome'], $_POST['categoria'], $id)){
-                header("location:produtos.php");
+            if(!isProdutoEmprestado($id)){
+                if(editarProduto($_POST['nome'], $_POST['categoria'], $id)){
+                    header("location:produtos.php");
+                }else{
+                    echo "Ocorreu um erro produto não adicionada!";
+                }
             }else{
-                echo "Ocorreu um erro produto não adicionada!";
+                $displayModal = "none";
+                echo "<div class='alert-error'>".
+                     "<p>" .
+                     "Alteração não permitida!<br/>" .
+                     "Produto já emprestado." .
+                     "</p>" .
+                     "</div>";
             }
         }else{
             header("location:produtos.php");          
@@ -66,11 +81,21 @@
         $id = $_GET['del'];
         $produto = pegarProduto($_GET['del']);
         if($produto["id_usuario"] == $_SESSION["usuarioLogado"]["id"]){
-            if(excluirProduto($id)){
-                header("location:produtos.php");
+            if(!isProdutoEmprestado($id)){
+                if(excluirProduto($id)){
+                    header("location:produtos.php");
+                }else{
+                    echo "Ocorreu um erro categoria não excluído!";
+                }
             }else{
-                echo "Ocorreu um erro categoria não excluído!";
-            }
+                $displayModal = "none";
+                echo "<div class='alert-error'>".
+                     "<p>" .
+                     "Exclusão não permitida!<br/>" .
+                     "Produto já emprestado." .
+                     "</p>" .
+                     "</div>";
+            }    
         }else{
             header("location:produtos.php");          
         }
